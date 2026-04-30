@@ -321,34 +321,39 @@ body {
 
 /* ── OS TABS ───────────────────── */
 .tab-bar {
-  background: white;
-  border-bottom: 1px solid var(--gold-border);
+  background: var(--primary);
   display: flex;
   justify-content: center;
-  gap: 0;
+  gap: 8px;
+  padding: 16px 24px;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 .os-tab {
-  padding: 14px 36px;
+  padding: 12px 40px;
   font-family: "Noto Sans JP", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: .06em;
-  color: var(--muted);
-  border: none;
-  border-bottom: 2px solid transparent;
-  background: none;
+  letter-spacing: .08em;
+  color: rgba(245,242,238,.5);
+  border: 1px solid rgba(196,168,130,.25);
+  border-radius: 4px;
+  background: transparent;
   cursor: pointer;
-  transition: color .15s, border-color .15s;
+  transition: all .2s;
+  min-width: 160px;
 }
 .os-tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
-.os-tab:hover { color: var(--primary); }
-.win-only { display: none; }
+.os-tab:not(.active):hover {
+  border-color: var(--gold);
+  color: var(--neutral);
+}
+/* win-only の初期非表示はJSで制御 */
 
 /* ── FAQ ───────────────────────── */
 .faq { margin-top: 52px; }
@@ -802,6 +807,7 @@ function switchOS(os) {
   winEls.forEach(el => el.style.display = os === 'win' ? '' : 'none');
 }
 
+winEls.forEach(el => el.style.display = 'none');
 tabs.forEach(tab => tab.addEventListener('click', () => switchOS(tab.dataset.os)));
 </script>
 </body>
