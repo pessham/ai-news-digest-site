@@ -342,6 +342,12 @@ code {
     </div>
     <div class="flow-sep">›</div>
     <div class="flow-step">
+      <div class="flow-icon">📝</div>
+      <div class="flow-name">.envを編集</div>
+      <div class="flow-desc">パスワードを貼り付け</div>
+    </div>
+    <div class="flow-sep">›</div>
+    <div class="flow-step">
       <div class="flow-icon">📁</div>
       <div class="flow-name">ダブルクリック</div>
       <div class="flow-desc">自動でセットアップ</div>
@@ -349,8 +355,8 @@ code {
     <div class="flow-sep">›</div>
     <div class="flow-step">
       <div class="flow-icon">⌨️</div>
-      <div class="flow-name">ターミナルに入力</div>
-      <div class="flow-desc">4つの質問に答える</div>
+      <div class="flow-name">残り項目を入力</div>
+      <div class="flow-desc">Enterだけでも可</div>
     </div>
     <div class="flow-sep">›</div>
     <div class="flow-step">
@@ -457,9 +463,52 @@ code {
 
   </div>
 
-  <!-- STEP 2: ダブルクリック -->
+  <!-- STEP 2: .env編集 -->
   <div class="sec-wrap" style="margin-top:40px;">
     <span class="sec-badge">STEP 2</span>
+    <div class="sec-title">.env ファイルにアプリパスワードを貼り付ける</div>
+    <div class="sec-desc">ダウンロードしたフォルダ内の設定ファイルを編集します</div>
+  </div>
+
+  <div class="card">
+    <div class="substep">
+      <div class="snum">1</div>
+      <div class="sbody">
+        <div class="stitle">.env.example を .env にコピーする</div>
+        <div class="sdesc">
+          フォルダ内の <strong>.env.example</strong> を右クリック →「複製」→ 名前を <strong>.env</strong> に変更してください。<br>
+          （ファイル名の先頭のドットを消さないように注意）
+        </div>
+        <div class="callout info">
+          <strong>.env が見えない場合：</strong><br>
+          Finder で <strong>Command + Shift + .</strong> を押すと隠しファイルが表示されます。
+        </div>
+      </div>
+    </div>
+
+    <div class="substep">
+      <div class="snum">2</div>
+      <div class="sbody">
+        <div class="stitle">.env をテキストエディタで開いて編集する</div>
+        <div class="sdesc">
+          <strong>.env</strong> を右クリック →「このアプリケーションで開く」→「テキストエディット」で開きます。<br>
+          以下の2箇所を自分のGmailアドレスとアプリパスワードに書き換えて保存してください。
+        </div>
+        <div class="ss">
+          <img src="images/step-env-blacked.png" alt=".envファイルの編集例">
+          <div class="ss-cap">GMAIL_ADDRESS と GMAIL_APP_PASSWORD を自分のものに書き換える（パスワードは黒塗り）</div>
+        </div>
+        <div class="callout warn">
+          <strong>アプリパスワードはスペースありでも貼り付けできます。</strong><br>
+          例）<code>abcd efgh ijkl mnop</code> のままでOKです。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: ダブルクリック -->
+  <div class="sec-wrap" style="margin-top:40px;">
+    <span class="sec-badge">STEP 3</span>
     <div class="sec-title">run_digest.command をダブルクリック</div>
     <div class="sec-desc">ダウンロードしたフォルダの中にあるファイルを開くだけです</div>
   </div>
@@ -498,11 +547,11 @@ code {
     </div>
   </div>
 
-  <!-- STEP 3: ターミナル入力 -->
+  <!-- STEP 4: ターミナル入力 -->
   <div class="sec-wrap" style="margin-top:40px;">
-    <span class="sec-badge">STEP 3</span>
-    <div class="sec-title">ターミナルの質問に答える</div>
-    <div class="sec-desc">4つの質問に答えるだけ。Enterキーで次へ進みます</div>
+    <span class="sec-badge">STEP 4</span>
+    <div class="sec-title">ターミナルの残り項目に答える</div>
+    <div class="sec-desc">受信先メールアドレスなど残り2つの質問に答えます（Enterだけでも可）</div>
   </div>
 
   <div class="card">
