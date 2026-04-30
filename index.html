@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毎朝6時のAIニュース便 — セットアップガイド</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --indigo: #4f46e5;
+  --indigo-light: #818cf8;
+  --indigo-bg: #eef2ff;
+  --gray-900: #111827;
+  --gray-700: #374151;
+  --gray-500: #6b7280;
+  --gray-200: #e5e7eb;
+  --gray-50: #f9fafb;
+  --green: #10b981;
+  --amber: #f59e0b;
+}
+
+body {
+  font-family: -apple-system, "Hiragino Sans", "Yu Gothic UI", sans-serif;
+  background: #f3f4f6;
+  color: var(--gray-900);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* ── HERO ──────────────────────── */
+.hero {
+  background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+  color: white;
+  padding: 72px 24px 56px;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(129,140,248,.2);
+  border: 1px solid rgba(129,140,248,.4);
+  color: var(--indigo-light);
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(30px, 6vw, 52px);
+  font-weight: 900;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.hero h1 em { color: var(--indigo-light); font-style: normal; }
+.hero p {
+  font-size: 16px;
+  color: rgba(255,255,255,.65);
+  max-width: 440px;
+  margin: 0 auto 36px;
+}
+.hero-pills {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.pill {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 99px;
+  padding: 6px 16px;
+  font-size: 13px;
+  color: rgba(255,255,255,.85);
+}
+
+/* ── FLOW BAR ──────────────────── */
+.flow-bar {
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 28px 24px;
+}
+.flow-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  text-align: center;
+  min-width: 100px;
+}
+.flow-icon { font-size: 26px; }
+.flow-name { font-size: 12px; font-weight: 700; color: var(--gray-700); }
+.flow-desc { font-size: 11px; color: var(--gray-500); }
+.flow-sep {
+  color: var(--gray-200);
+  font-size: 20px;
+  padding-top: 4px;
+  flex-shrink: 0;
+}
+
+/* ── MAIN ──────────────────────── */
+.main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+/* ── PREREQ ────────────────────── */
+.prereq {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 16px;
+}
+.prereq-icon { font-size: 28px; flex-shrink: 0; }
+.prereq h3 { font-size: 15px; font-weight: 700; color: #92400e; margin-bottom: 6px; }
+.prereq p { font-size: 13px; color: #78350f; }
+.prereq a { color: #b45309; }
+
+/* ── SECTION HEADING ───────────── */
+.sec-wrap { margin-bottom: 10px; }
+.sec-badge {
+  display: inline-block;
+  background: var(--indigo);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.sec-title { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+.sec-desc { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+
+/* ── CARD ──────────────────────── */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.07), 0 8px 24px rgba(0,0,0,.04);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+/* ── SUBSTEP ───────────────────── */
+.substep {
+  display: flex;
+  gap: 20px;
+  padding: 28px 32px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.substep:last-child { border-bottom: none; }
+.snum {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  background: var(--indigo-bg);
+  color: var(--indigo);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 1px;
+}
+.sbody { flex: 1; min-width: 0; }
+.stitle { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.sdesc { font-size: 13px; color: var(--gray-500); line-height: 1.65; margin-bottom: 0; }
+
+/* ── SCREENSHOT ────────────────── */
+.ss {
+  margin-top: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+.ss img { width: 100%; display: block; }
+.ss-cap {
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+  padding: 7px 14px;
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+/* ── CALLOUT ───────────────────── */
+.callout {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.callout.info {
+  background: var(--indigo-bg);
+  border-left: 3px solid var(--indigo);
+  color: #3730a3;
+}
+.callout.warn {
+  background: #fffbeb;
+  border-left: 3px solid var(--amber);
+  color: #78350f;
+}
+.callout strong { font-weight: 700; }
+
+/* ── TERMINAL ──────────────────── */
+.terminal {
+  margin-top: 14px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0f172a;
+}
+.term-bar {
+  background: #1e293b;
+  padding: 10px 16px;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.dot { width: 11px; height: 11px; border-radius: 50%; }
+.dot.r { background: #f87171; }
+.dot.y { background: #fbbf24; }
+.dot.g { background: #34d399; }
+.term-title {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  color: #64748b;
+  font-family: monospace;
+}
+.term-body {
+  padding: 20px 24px;
+  font-family: "Menlo", "Monaco", monospace;
+  font-size: 12.5px;
+  line-height: 1.9;
+  color: #94a3b8;
+  white-space: pre;
+  overflow-x: auto;
+}
+.tc { color: #94a3b8; }
+.tg { color: #34d399; }
+.tb { color: #60a5fa; }
+.ty { color: #fbbf24; }
+.tp { color: #c084fc; }
+.tw { color: #f1f5f9; }
+.ti { color: #f87171; }
+
+/* ── DONE ──────────────────────── */
+.done {
+  background: linear-gradient(135deg, var(--indigo) 0%, #7c3aed 100%);
+  border-radius: 20px;
+  padding: 48px 32px;
+  text-align: center;
+  color: white;
+  margin-top: 40px;
+}
+.done-emoji { font-size: 52px; margin-bottom: 16px; }
+.done h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+.done p { color: rgba(255,255,255,.75); font-size: 15px; margin-bottom: 28px; }
+.done-grid {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.done-item {
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 14px;
+}
+
+/* ── FAQ ───────────────────────── */
+.faq { margin-top: 52px; }
+.faq-title { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
+.faq-item {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.faq-q { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+.faq-q::before { content: "Q.  "; color: var(--indigo); }
+.faq-a { font-size: 13px; color: var(--gray-500); line-height: 1.65; }
+code {
+  background: #f1f5f9;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+@media (max-width: 580px) {
+  .flow-sep { display: none; }
+  .substep { padding: 20px; gap: 14px; }
+  .done { padding: 32px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">🤖 無料ツール · Mac専用</div>
+  <h1>毎朝<em>6時</em>の<br>AIニュース便</h1>
+  <p>設定は一度だけ。翌朝から毎日、最新AIニュースが自動で届きます。</p>
+  <div class="hero-pills">
+    <div class="pill">⚡ APIキー不要で動く</div>
+    <div class="pill">📧 Gmailに自動配信</div>
+    <div class="pill">🔁 毎朝6時 or 起動時に届く</div>
+  </div>
+</div>
+
+<!-- FLOW BAR -->
+<div class="flow-bar">
+  <div class="flow-inner">
+    <div class="flow-step">
+      <div class="flow-icon">🔑</div>
+      <div class="flow-name">パスワード取得</div>
+      <div class="flow-desc">Googleの設定</div>
+    </div>
+    <div class="flow-sep">›</div>
+    <div class="flow-step">
+      <div class="flow-icon">📁</div>
+      <div class="flow-name">ダブルクリック</div>
+      <div class="flow-desc">自動でセットアップ</div>
+    </div>
+    <div class="flow-sep">›</div>
+    <div class="flow-step">
+      <div class="flow-icon">⌨️</div>
+      <div class="flow-name">ターミナルに入力</div>
+      <div class="flow-desc">4つの質問に答える</div>
+    </div>
+    <div class="flow-sep">›</div>
+    <div class="flow-step">
+      <div class="flow-icon">📩</div>
+      <div class="flow-name">メールが届く</div>
+      <div class="flow-desc">完了！</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 事前準備 -->
+  <div class="prereq">
+    <div class="prereq-icon">💡</div>
+    <div>
+      <h3>はじめる前に：Gmailアプリパスワードを準備してください</h3>
+      <p>このツールはGmailを使ってメールを送ります。通常のパスワードとは別の「アプリパスワード」が必要です。<br>下のSTEP 1で取得方法を説明します。先に読んでから始めると スムーズです。</p>
+    </div>
+  </div>
+
+  <!-- STEP 1: アプリパスワード取得 -->
+  <div class="sec-wrap" style="margin-top:0;">
+    <span class="sec-badge">STEP 1</span>
+    <div class="sec-title">Gmailアプリパスワードを取得する</div>
+    <div class="sec-desc">所要時間：約3〜5分 ／ Googleアカウントの設定画面で行います</div>
+  </div>
+
+  <div class="card">
+
+    <div class="substep">
+      <div class="snum">1</div>
+      <div class="sbody">
+        <div class="stitle">セキュリティページを開く</div>
+        <div class="sdesc">
+          <a href="https://myaccount.google.com/security" target="_blank" style="color:var(--indigo);">myaccount.google.com/security</a> を開きます。<br>
+          左メニューから <strong>「セキュリティとログイン」</strong> をクリックしてください。
+        </div>
+        <div class="ss">
+          <img src="images/step-security.png" alt="Googleアカウント セキュリティページ">
+          <div class="ss-cap">左メニュー「セキュリティとログイン」を選択</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="substep">
+      <div class="snum">2</div>
+      <div class="sbody">
+        <div class="stitle">「2段階認証プロセス」をONにする</div>
+        <div class="sdesc">「2段階認証プロセス」をクリックして有効にします。すでにONの場合はスキップ。</div>
+        <div class="ss">
+          <img src="images/step-2fa-done.png" alt="2段階認証 完了">
+          <div class="ss-cap">「完了」を押して2段階認証を有効化</div>
+        </div>
+        <div class="ss" style="margin-top:10px;">
+          <img src="images/step-2fa-page.png" alt="2段階認証ページ">
+          <div class="ss-cap">この画面になればOK。ページを下にスクロールする</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="substep">
+      <div class="snum">3</div>
+      <div class="sbody">
+        <div class="stitle">「アプリパスワード」をクリック</div>
+        <div class="sdesc">2段階認証のページを下にスクロールすると「アプリパスワード」が見つかります。右端の <strong>›</strong> をクリック。</div>
+        <div class="ss">
+          <img src="images/step-app-pw-link.png" alt="アプリパスワードのリンク">
+          <div class="ss-cap">「アプリパスワード」→ 右端の ›</div>
+        </div>
+        <div class="callout info">
+          <strong>「アプリパスワード」が見つからない場合：</strong><br>
+          ブラウザで <strong>myaccount.google.com/apppasswords</strong> を直接開いてください。
+        </div>
+      </div>
+    </div>
+
+    <div class="substep">
+      <div class="snum">4</div>
+      <div class="sbody">
+        <div class="stitle">アプリ名を入力して「作成」</div>
+        <div class="sdesc">アプリ名に <strong>「AIニュース便」</strong> と入力（なんでもOK）して「作成」をクリック。</div>
+        <div class="ss">
+          <img src="images/step-app-name.png" alt="アプリ名を入力">
+          <div class="ss-cap">名前を入力して「作成」</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="substep">
+      <div class="snum">5</div>
+      <div class="sbody">
+        <div class="stitle">表示されたパスワードをコピーする</div>
+        <div class="sdesc">16文字のパスワードが表示されます。<strong>次のSTEPで使うのでコピーしておいてください。</strong></div>
+        <div class="ss">
+          <img src="images/step-pw-done.png" alt="パスワード生成完了">
+          <div class="ss-cap">表示されたパスワードをコピー（スペースありでも貼り付けできます）</div>
+        </div>
+        <div class="callout warn">
+          <strong>この画面を閉じると二度と確認できません。</strong>メモかコピーをしてから閉じてください。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STEP 2: ダブルクリック -->
+  <div class="sec-wrap" style="margin-top:40px;">
+    <span class="sec-badge">STEP 2</span>
+    <div class="sec-title">run_digest.command をダブルクリック</div>
+    <div class="sec-desc">ダウンロードしたフォルダの中にあるファイルを開くだけです</div>
+  </div>
+
+  <div class="card">
+    <div class="substep">
+      <div class="snum">1</div>
+      <div class="sbody">
+        <div class="stitle">フォルダ内の run_digest.command を開く</div>
+        <div class="sdesc">ダウンロードしたフォルダの中にある <strong>run_digest.command</strong> をダブルクリックしてください。黒いターミナル画面が自動で開きます。</div>
+        <div class="callout warn">
+          <strong>「開発元を確認できないため開けません」と出た場合：</strong><br>
+          右クリック（または control+クリック）→「開く」→「開く」をクリック
+        </div>
+      </div>
+    </div>
+
+    <div class="substep">
+      <div class="snum">2</div>
+      <div class="sbody">
+        <div class="stitle">Pythonが未インストールの場合（初回のみ）</div>
+        <div class="sdesc">Pythonが入っていないMacでは下のメッセージが出ます。ポップアップが出たら <strong>「インストール」</strong> を押して5〜10分待ち、完了後にもう一度ダブルクリックしてください。</div>
+        <div class="terminal">
+          <div class="term-bar">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div class="term-title">ターミナル</div>
+          </div>
+          <div class="term-body"><span class="ty">⚠️  Pythonがインストールされていません。</span>
+
+  インストールを開始します...
+  <span class="tc">画面にポップアップが表示されたら「インストール」をクリックしてください。</span>
+
+<span class="tg">  ✅ 完了後、もう一度 run_digest.command をダブルクリックしてください。</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: ターミナル入力 -->
+  <div class="sec-wrap" style="margin-top:40px;">
+    <span class="sec-badge">STEP 3</span>
+    <div class="sec-title">ターミナルの質問に答える</div>
+    <div class="sec-desc">4つの質問に答えるだけ。Enterキーで次へ進みます</div>
+  </div>
+
+  <div class="card">
+    <div class="substep">
+      <div class="snum">1</div>
+      <div class="sbody">
+        <div class="stitle">順番に入力する</div>
+        <div class="sdesc">赤字の部分が入力する内容です。③④はEnterを押すだけでもOK。</div>
+        <div class="terminal">
+          <div class="term-bar">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div class="term-title">ターミナル</div>
+          </div>
+          <div class="term-body"><span class="tg">🔧 初回セットアップ（1〜2分で完了します）</span>
+
+<span class="tb">① Gmailアドレスを入力してください</span>
+   例) yourname@gmail.com : <span class="ti">yourname@gmail.com</span>
+
+<span class="tb">② Gmailのアプリパスワードを入力してください</span>
+   ※ STEP 1で取得した16文字のパスワード
+   例) abcd efgh ijkl mnop : <span class="ti">xxxx xxxx xxxx xxxx</span>  ← コピーして貼り付け
+
+<span class="tb">③ 受信メールアドレス（自分に送るならEnterでOK）</span>
+   [yourname@gmail.com]: <span class="ti">（Enterを押す）</span>
+
+<span class="tb">④ Claude APIキー（なければEnterでOK・後から追加できます）</span>
+   : <span class="ti">（Enterを押す）</span>
+
+<span class="tg">  ✅ 設定を保存しました
+  ✅ 毎朝6時の自動実行を登録しました</span>
+
+<span class="tw">  テスト送信します...</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="substep">
+      <div class="snum">2</div>
+      <div class="sbody">
+        <div class="stitle">テストメールが届けば完了</div>
+        <div class="sdesc">しばらくするとGmailにテストメールが届きます。届いていれば設定は完全に完了です。</div>
+        <div class="callout info">
+          <strong>迷惑メールフォルダも確認してください。</strong><br>
+          初回は迷惑メール判定されることがあります。届いていたら「迷惑メールでない」に設定してください。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DONE -->
+  <div class="done">
+    <div class="done-emoji">🎉</div>
+    <h2>セットアップ完了！</h2>
+    <p>翌朝から毎日AIニュースが自動で届きます。<br>Macを起動した時点で当日分が届いていない場合も自動配信されます。</p>
+    <div class="done-grid">
+      <div class="done-item">⏰ 毎朝6時に自動配信</div>
+      <div class="done-item">🔁 起動時に未配信なら即配信</div>
+      <div class="done-item">📁 ダブルクリックで手動実行も可</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <div class="faq-title">よくある質問</div>
+
+    <div class="faq-item">
+      <div class="faq-q">6時にMacが起動していなかったら？</div>
+      <div class="faq-a">Mac を起動した時点で当日分がまだ届いていなければ自動で送られます。手動で <strong>run_digest.command</strong> をダブルクリックしても届きます。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">AI要約（日本語まとめ）にしたいときは？</div>
+      <div class="faq-a">AnthropicのサイトでAPIキーを取得し、フォルダ内の <code>.env</code> ファイルを TextEdit で開いて <code>ANTHROPIC_API_KEY=</code> に貼り付けてください。次回から日本語AI要約になります。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">送信先メールアドレスを変えたいときは？</div>
+      <div class="faq-a">フォルダ内の <code>.env</code> ファイルを TextEdit で開き、<code>EMAIL_TO=</code> を変更して保存してください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">配信を止めたいときは？</div>
+      <div class="faq-a">ターミナルで以下を実行してください：<br><code>launchctl unload ~/Library/LaunchAgents/com.ainewsdigest.daily.plist</code></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">「開発元を確認できない」エラーが出る</div>
+      <div class="faq-a">ファイルを右クリック（またはcontrol+クリック）→「開く」→「開く」をクリックしてください。Macのセキュリティ設定によって初回だけ表示される場合があります。</div>
+    </div>
+
+  </div>
+
+</div><!-- /main -->
+</body>
+</html>
