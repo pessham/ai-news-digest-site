@@ -319,6 +319,37 @@ body {
   color: rgba(245,242,238,.85);
 }
 
+/* ── OS TABS ───────────────────── */
+.tab-bar {
+  background: white;
+  border-bottom: 1px solid var(--gold-border);
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.os-tab {
+  padding: 14px 36px;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.os-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.os-tab:hover { color: var(--primary); }
+.win-only { display: none; }
+
 /* ── FAQ ───────────────────────── */
 .faq { margin-top: 52px; }
 .faq-title {
@@ -359,7 +390,7 @@ code {
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-eyebrow">🤖 無料ツール · Mac専用</div>
+  <div class="hero-eyebrow">🤖 無料ツール · Mac / Windows対応</div>
   <h1>毎朝<em>6時</em>の<br>AIニュース便</h1>
   <p>設定は一度だけ。翌朝から毎日、最新AIニュースが自動で届きます。</p>
   <div class="hero-pills">
@@ -370,8 +401,14 @@ code {
 </div>
 
 <!-- WELCOME BANNER -->
-<div style="background:#4f46e5;color:white;text-align:center;padding:14px 24px;font-size:15px;font-weight:600;letter-spacing:.01em;">
+<div style="background:#7B9BAD;color:white;text-align:center;padding:14px 24px;font-size:15px;font-weight:600;letter-spacing:.01em;">
   🎉 ペスハムのメルマガ登録ありがとうございます！
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="os-tab active" data-os="mac">🍎 Mac</button>
+  <button class="os-tab" data-os="win">🪟 Windows</button>
 </div>
 
 <!-- FLOW BAR -->
@@ -529,9 +566,13 @@ code {
           フォルダ内の <strong>.env.example</strong> を右クリック →「複製」→ 名前を <strong>.env</strong> に変更してください。<br>
           （ファイル名の先頭のドットを消さないように注意）
         </div>
-        <div class="callout info">
-          <strong>.env が見えない場合：</strong><br>
+        <div class="callout info mac-only">
+          <strong>.env が見えない場合（Mac）：</strong><br>
           Finder で <strong>Command + Shift + .</strong> を押すと隠しファイルが表示されます。
+        </div>
+        <div class="callout info win-only">
+          <strong>.env が見えない場合（Windows）：</strong><br>
+          エクスプローラー上部の「表示」→「隠しファイル」にチェックを入れてください。
         </div>
       </div>
     </div>
@@ -540,8 +581,12 @@ code {
       <div class="snum">2</div>
       <div class="sbody">
         <div class="stitle">.env をテキストエディタで開いて編集する</div>
-        <div class="sdesc">
+        <div class="sdesc mac-only">
           <strong>.env</strong> を右クリック →「このアプリケーションで開く」→「テキストエディット」で開きます。<br>
+          以下の2箇所を自分のGmailアドレスとアプリパスワードに書き換えて保存してください。
+        </div>
+        <div class="sdesc win-only">
+          <strong>.env</strong> を右クリック →「プログラムから開く」→「メモ帳」で開きます。<br>
           以下の2箇所を自分のGmailアドレスとアプリパスワードに書き換えて保存してください。
         </div>
         <div class="ss">
@@ -556,14 +601,13 @@ code {
     </div>
   </div>
 
-  <!-- STEP 3: ダブルクリック -->
-  <div class="sec-wrap" style="margin-top:40px;">
+  <!-- STEP 3: Mac -->
+  <div class="sec-wrap mac-only" style="margin-top:40px;">
     <span class="sec-badge">STEP 3</span>
     <div class="sec-title">run_digest.command をダブルクリック</div>
     <div class="sec-desc">ダウンロードしたフォルダの中にあるファイルを開くだけです</div>
   </div>
-
-  <div class="card">
+  <div class="card mac-only">
     <div class="substep">
       <div class="snum">1</div>
       <div class="sbody">
@@ -575,86 +619,112 @@ code {
         </div>
       </div>
     </div>
-
     <div class="substep">
       <div class="snum">2</div>
       <div class="sbody">
         <div class="stitle">Pythonが未インストールの場合（初回のみ）</div>
         <div class="sdesc">Pythonが入っていないMacでは下のメッセージが出ます。ポップアップが出たら <strong>「インストール」</strong> を押して5〜10分待ち、完了後にもう一度ダブルクリックしてください。</div>
         <div class="terminal">
-          <div class="term-bar">
-            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-            <div class="term-title">ターミナル</div>
-          </div>
+          <div class="term-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="term-title">ターミナル</div></div>
           <div class="term-body"><span class="ty">⚠️  Pythonがインストールされていません。</span>
 
-  インストールを開始します...
   <span class="tc">画面にポップアップが表示されたら「インストール」をクリックしてください。</span>
-
 <span class="tg">  ✅ 完了後、もう一度 run_digest.command をダブルクリックしてください。</span></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- STEP 4: ターミナル入力 -->
-  <div class="sec-wrap" style="margin-top:40px;">
+  <!-- STEP 3: Windows -->
+  <div class="sec-wrap win-only" style="margin-top:40px;">
+    <span class="sec-badge">STEP 3</span>
+    <div class="sec-title">run_digest.bat をダブルクリック</div>
+    <div class="sec-desc">ダウンロードしたフォルダの中にあるファイルを開くだけです</div>
+  </div>
+  <div class="card win-only">
+    <div class="substep">
+      <div class="snum">1</div>
+      <div class="sbody">
+        <div class="stitle">フォルダ内の run_digest.bat を開く</div>
+        <div class="sdesc">ダウンロードしたフォルダの中にある <strong>run_digest.bat</strong> をダブルクリックしてください。黒いコマンドプロンプト画面が自動で開きます。</div>
+        <div class="callout warn">
+          <strong>「WindowsによってPCが保護されました」と出た場合：</strong><br>
+          「詳細情報」→「実行」をクリックしてください。
+        </div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="snum">2</div>
+      <div class="sbody">
+        <div class="stitle">Pythonが未インストールの場合（初回のみ）</div>
+        <div class="sdesc">Pythonが入っていないPCでは自動でブラウザが開きます。<strong>「Download Python」</strong>ボタンからインストールしてください。</div>
+        <div class="callout warn">
+          <strong>インストール時に「Add Python to PATH」に必ずチェックを入れてください。</strong><br>
+          チェックを忘れると動作しません。完了後にもう一度 run_digest.bat をダブルクリックしてください。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: Mac -->
+  <div class="sec-wrap mac-only" style="margin-top:40px;">
     <span class="sec-badge">STEP 4</span>
     <div class="sec-title">ターミナルの残り項目に答える</div>
     <div class="sec-desc">受信先メールアドレスなど残り2つの質問に答えます（Enterだけでも可）</div>
   </div>
-
-  <div class="card">
+  <div class="card mac-only">
     <div class="substep">
       <div class="snum">1</div>
       <div class="sbody">
         <div class="stitle">順番に入力する</div>
         <div class="sdesc">赤字の部分が入力する内容です。③④はEnterを押すだけでもOK。</div>
         <div class="terminal">
-          <div class="term-bar">
-            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-            <div class="term-title">ターミナル</div>
-          </div>
+          <div class="term-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="term-title">ターミナル</div></div>
           <div class="term-body"><span class="tg">🔧 初回セットアップ（1〜2分で完了します）</span>
 
 <span class="tb">① Gmailアドレスを入力してください</span>
    例) yourname@gmail.com : <span class="ti">yourname@gmail.com</span>
 
 <span class="tb">② Gmailのアプリパスワードを入力してください</span>
-   ※ STEP 1で取得した16文字のパスワード
-   例) abcd efgh ijkl mnop : <span class="ti">xxxx xxxx xxxx xxxx</span>  ← コピーして貼り付け
+   例) abcd efgh ijkl mnop : <span class="ti">xxxx xxxx xxxx xxxx</span>
 
 <span class="tb">③ 受信メールアドレス（自分に送るならEnterでOK）</span>
    [yourname@gmail.com]: <span class="ti">（Enterを押す）</span>
 
-<span class="tb">④ Claude APIキー（なければEnterでOK・後から追加できます）</span>
+<span class="tb">④ Claude APIキー（なければEnterでOK）</span>
    : <span class="ti">（Enterを押す）</span>
 
-<span class="tg">  ✅ 設定を保存しました
-  ✅ 毎朝6時の自動実行を登録しました</span>
-
-<span class="tw">  テスト送信します...</span></div>
+<span class="tg">  ✅ 設定完了・テスト送信します...</span></div>
         </div>
       </div>
     </div>
-
     <div class="substep">
       <div class="snum">2</div>
       <div class="sbody">
         <div class="stitle">テストメールが届けば完了</div>
-        <div class="sdesc">しばらくするとGmailにテストメールが届きます。こんな感じで毎日届きます！</div>
-        <div class="ss">
-          <img src="images/email-inbox.png" alt="受信トレイのプレビュー">
-          <div class="ss-cap">受信トレイに「AIニュース便」が届く</div>
-        </div>
-        <div class="ss" style="margin-top:10px;">
-          <img src="images/email-preview.png" alt="メールの中身">
-          <div class="ss-cap">メールを開くとこんな感じ。日本語のニュースが毎日届く</div>
-        </div>
-        <div class="callout info" style="margin-top:14px;">
-          <strong>迷惑メールフォルダも確認してください。</strong><br>
-          初回は迷惑メール判定されることがあります。届いていたら「迷惑メールでない」に設定してください。
-        </div>
+        <div class="sdesc">こんな感じで毎日届きます！</div>
+        <div class="ss"><img src="images/email-inbox.png" alt="受信トレイ"><div class="ss-cap">受信トレイに「AIニュース便」が届く</div></div>
+        <div class="ss" style="margin-top:10px;"><img src="images/email-preview.png" alt="メールの中身"><div class="ss-cap">メールを開くとこんな感じ</div></div>
+        <div class="callout info" style="margin-top:14px;"><strong>迷惑メールフォルダも確認してください。</strong><br>初回は迷惑メール判定されることがあります。届いていたら「迷惑メールでない」に設定してください。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: Windows（シンプル版）-->
+  <div class="sec-wrap win-only" style="margin-top:40px;">
+    <span class="sec-badge">STEP 4</span>
+    <div class="sec-title">テストメールが届けば完了</div>
+    <div class="sec-desc">run_digest.bat を実行するとそのままテスト送信されます</div>
+  </div>
+  <div class="card win-only">
+    <div class="substep">
+      <div class="snum">1</div>
+      <div class="sbody">
+        <div class="stitle">メールを確認する</div>
+        <div class="sdesc">コマンドプロンプトに「✅ 送信完了」と表示されたらGmailを開いてください。こんな感じで毎日届きます！</div>
+        <div class="ss"><img src="images/email-inbox.png" alt="受信トレイ"><div class="ss-cap">受信トレイに「AIニュース便」が届く</div></div>
+        <div class="ss" style="margin-top:10px;"><img src="images/email-preview.png" alt="メールの中身"><div class="ss-cap">メールを開くとこんな感じ</div></div>
+        <div class="callout info" style="margin-top:14px;"><strong>迷惑メールフォルダも確認してください。</strong><br>初回は迷惑メール判定されることがあります。届いていたら「迷惑メールでない」に設定してください。</div>
       </div>
     </div>
   </div>
@@ -663,11 +733,13 @@ code {
   <div class="done">
     <div class="done-emoji">🎉</div>
     <h2>セットアップ完了！</h2>
-    <p>翌朝から毎日AIニュースが自動で届きます。<br>Macを起動した時点で当日分が届いていない場合も自動配信されます。</p>
+    <p class="mac-only">翌朝から毎日AIニュースが自動で届きます。<br>Macを起動した時点で当日分が届いていない場合も自動配信されます。</p>
+    <p class="win-only">翌朝から毎日AIニュースが自動で届きます。<br>PCを起動した時点で当日分が届いていない場合も自動配信されます。</p>
     <div class="done-grid">
       <div class="done-item">⏰ 毎朝6時に自動配信</div>
       <div class="done-item">🔁 起動時に未配信なら即配信</div>
-      <div class="done-item">📁 ダブルクリックで手動実行も可</div>
+      <div class="done-item mac-only">📁 run_digest.command で手動実行も可</div>
+      <div class="done-item win-only">📁 run_digest.bat で手動実行も可</div>
     </div>
   </div>
 
@@ -675,33 +747,62 @@ code {
   <div class="faq">
     <div class="faq-title">よくある質問</div>
 
-    <div class="faq-item">
+    <div class="faq-item mac-only">
       <div class="faq-q">6時にMacが起動していなかったら？</div>
-      <div class="faq-a">Mac を起動した時点で当日分がまだ届いていなければ自動で送られます。手動で <strong>run_digest.command</strong> をダブルクリックしても届きます。</div>
+      <div class="faq-a">Macを起動した時点で当日分がまだ届いていなければ自動で送られます。手動で <strong>run_digest.command</strong> をダブルクリックしても届きます。</div>
+    </div>
+
+    <div class="faq-item win-only">
+      <div class="faq-q">6時にPCが起動していなかったら？</div>
+      <div class="faq-a">PCを起動した時点で当日分がまだ届いていなければ自動で送られます。手動で <strong>run_digest.bat</strong> をダブルクリックしても届きます。</div>
     </div>
 
     <div class="faq-item">
       <div class="faq-q">AI要約にしたいときは？</div>
-      <div class="faq-a"><a href="https://platform.claude.com/settings/keys" target="_blank" style="color:var(--indigo);">platform.claude.com/settings/keys</a> でAPIキーを取得し、フォルダ内の <code>.env</code> ファイルを TextEdit で開いて <code>ANTHROPIC_API_KEY=</code> に貼り付けてください。次回から日本語AI要約になります。</div>
+      <div class="faq-a"><a href="https://platform.claude.com/settings/keys" target="_blank">platform.claude.com/settings/keys</a> でAPIキーを取得し、フォルダ内の <code>.env</code> ファイルを開いて <code>ANTHROPIC_API_KEY=</code> に貼り付けてください。次回から日本語AI要約になります。</div>
     </div>
 
     <div class="faq-item">
       <div class="faq-q">送信先メールアドレスを変えたいときは？</div>
-      <div class="faq-a">フォルダ内の <code>.env</code> ファイルを TextEdit で開き、<code>EMAIL_TO=</code> を変更して保存してください。</div>
+      <div class="faq-a">フォルダ内の <code>.env</code> ファイルを開き、<code>EMAIL_TO=</code> を変更して保存してください。</div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item mac-only">
       <div class="faq-q">配信を止めたいときは？</div>
       <div class="faq-a">ターミナルで以下を実行してください：<br><code>launchctl unload ~/Library/LaunchAgents/com.ainewsdigest.daily.plist</code></div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item win-only">
+      <div class="faq-q">配信を止めたいときは？</div>
+      <div class="faq-a">コマンドプロンプトで以下を実行してください：<br><code>schtasks /delete /tn "AIニュース便" /f</code></div>
+    </div>
+
+    <div class="faq-item mac-only">
       <div class="faq-q">「開発元を確認できない」エラーが出る</div>
       <div class="faq-a">ファイルを右クリック（またはcontrol+クリック）→「開く」→「開く」をクリックしてください。Macのセキュリティ設定によって初回だけ表示される場合があります。</div>
+    </div>
+
+    <div class="faq-item win-only">
+      <div class="faq-q">「WindowsによってPCが保護されました」が出る</div>
+      <div class="faq-a">「詳細情報」をクリック → 「実行」をクリックしてください。Windowsのセキュリティ設定によって初回だけ表示される場合があります。</div>
     </div>
 
   </div>
 
 </div><!-- /main -->
+
+<script>
+const tabs = document.querySelectorAll('.os-tab');
+const macEls = document.querySelectorAll('.mac-only');
+const winEls = document.querySelectorAll('.win-only');
+
+function switchOS(os) {
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.os === os));
+  macEls.forEach(el => el.style.display = os === 'mac' ? '' : 'none');
+  winEls.forEach(el => el.style.display = os === 'win' ? '' : 'none');
+}
+
+tabs.forEach(tab => tab.addEventListener('click', () => switchOS(tab.dataset.os)));
+</script>
 </body>
 </html>
