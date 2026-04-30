@@ -332,19 +332,27 @@ code {
   </div>
 </div>
 
+<!-- WELCOME BANNER -->
+<div style="background:#4f46e5;color:white;text-align:center;padding:14px 24px;font-size:15px;font-weight:600;letter-spacing:.01em;">
+  🎉 ペスハムのメルマガ登録ありがとうございます！
+</div>
+
 <!-- FLOW BAR -->
 <div class="flow-bar">
+  <div style="text-align:center;font-size:13px;font-weight:700;color:var(--indigo);margin-bottom:20px;letter-spacing:.02em;">
+    簡単作業で自動化！ .envファイルを触る練習にも！
+  </div>
   <div class="flow-inner">
     <div class="flow-step">
       <div class="flow-icon">🔑</div>
-      <div class="flow-name">パスワード取得</div>
+      <div class="flow-name">"アプリ"パスワード取得</div>
       <div class="flow-desc">Googleの設定</div>
     </div>
     <div class="flow-sep">›</div>
     <div class="flow-step">
       <div class="flow-icon">📝</div>
       <div class="flow-name">.envを編集</div>
-      <div class="flow-desc">パスワードを貼り付け</div>
+      <div class="flow-desc">"アプリ"パスワードを貼り付け</div>
     </div>
     <div class="flow-sep">›</div>
     <div class="flow-step">
@@ -456,7 +464,12 @@ code {
           <div class="ss-cap">表示されたパスワードをコピー（スペースありでも貼り付けできます）</div>
         </div>
         <div class="callout warn">
-          <strong>この画面を閉じると二度と確認できません。</strong>メモかコピーをしてから閉じてください。
+          <strong>このパスワードは絶対に外に出さないようにしてください。</strong><br>
+          （上の画像に表示されているパスワードはすでに変更済みのものなのでご安心を）
+        </div>
+        <div class="callout warn" style="margin-top:8px;">
+          <strong>この画面を閉じると二度と確認できません。</strong>メモかコピーをしてから閉じてください。<br>
+          閉じてしまった場合は、一度そのパスワードを削除して再度新しいパスワードを生成してください。
         </div>
       </div>
     </div>
@@ -592,8 +605,16 @@ code {
       <div class="snum">2</div>
       <div class="sbody">
         <div class="stitle">テストメールが届けば完了</div>
-        <div class="sdesc">しばらくするとGmailにテストメールが届きます。届いていれば設定は完全に完了です。</div>
-        <div class="callout info">
+        <div class="sdesc">しばらくするとGmailにテストメールが届きます。こんな感じで毎日届きます！</div>
+        <div class="ss">
+          <img src="images/email-inbox.png" alt="受信トレイのプレビュー">
+          <div class="ss-cap">受信トレイに「AIニュース便」が届く</div>
+        </div>
+        <div class="ss" style="margin-top:10px;">
+          <img src="images/email-preview.png" alt="メールの中身">
+          <div class="ss-cap">メールを開くとこんな感じ。日本語のニュースが毎日届く</div>
+        </div>
+        <div class="callout info" style="margin-top:14px;">
           <strong>迷惑メールフォルダも確認してください。</strong><br>
           初回は迷惑メール判定されることがあります。届いていたら「迷惑メールでない」に設定してください。
         </div>
@@ -623,8 +644,8 @@ code {
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">AI要約（日本語まとめ）にしたいときは？</div>
-      <div class="faq-a">AnthropicのサイトでAPIキーを取得し、フォルダ内の <code>.env</code> ファイルを TextEdit で開いて <code>ANTHROPIC_API_KEY=</code> に貼り付けてください。次回から日本語AI要約になります。</div>
+      <div class="faq-q">AI要約にしたいときは？</div>
+      <div class="faq-a"><a href="https://platform.claude.com/settings/keys" target="_blank" style="color:var(--indigo);">platform.claude.com/settings/keys</a> でAPIキーを取得し、フォルダ内の <code>.env</code> ファイルを TextEdit で開いて <code>ANTHROPIC_API_KEY=</code> に貼り付けてください。次回から日本語AI要約になります。</div>
     </div>
 
     <div class="faq-item">
