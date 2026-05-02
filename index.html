@@ -92,6 +92,34 @@ body {
   letter-spacing: .02em;
 }
 
+/* ── DOWNLOAD BUTTON ──────────────── */
+.hero-download {
+  margin-top: 32px;
+}
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold);
+  color: var(--primary);
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  text-decoration: none;
+  letter-spacing: .04em;
+  transition: opacity .2s;
+}
+.btn-download:hover { opacity: .85; }
+.btn-download-sub {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(245,242,238,.5);
+  letter-spacing: .02em;
+}
+
 /* ── FLOW BAR ──────────────────── */
 .flow-bar {
   background: white;
@@ -402,6 +430,12 @@ code {
     <div class="pill">⚡ APIキー不要で動く</div>
     <div class="pill">📧 Gmailに自動配信</div>
     <div class="pill">🔁 毎朝6時 or 起動時に届く</div>
+  </div>
+  <div class="hero-download">
+    <a class="btn-download" href="ai-news-digest.zip" download>
+      ⬇︎ ツールをダウンロード（無料）
+    </a>
+    <span class="btn-download-sub">zip形式 · Mac / Windows対応</span>
   </div>
 </div>
 
